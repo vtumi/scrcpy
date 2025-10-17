@@ -16,7 +16,12 @@ public final class ClipboardManager {
             // <https://github.com/Genymobile/scrcpy/issues/1556>
             return null;
         }
-        return new ClipboardManager(manager);
+        try {
+            manager.hasPrimaryClip();
+            return new ClipboardManager(manager);
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     private ClipboardManager(android.content.ClipboardManager manager) {
